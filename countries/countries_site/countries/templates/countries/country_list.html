@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1>🌍 Explore Countries Around the World 🌟</h1>
+        <p>A colorful journey through our global village!</p>
+    </div>
+
+    <!-- Search Form -->
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="GET" action="" class="form-inline">
+                {% csrf_token %}
+                <div class="form-group w-100">
+                    {{ form.query.label }}
+                    {{ form.query }}
+                </div>
+                <button type="submit" class="btn btn-info ml-2">Search</button>
+                <!-- Reset Button -->
+                <a href="{% url 'country_list' %}" class="btn btn-secondary ml-2">Reset</a>
+            </form>
+        </div>
+    </div>
+
+    <!-- Country List -->
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8">
+            <ul class="list-group">
+                {% for country in countries %}
+                    <li class="list-group-item text-white"
+                        style="background: linear-gradient(90deg, #FF7EB3, #FF758C); border: none; margin-bottom: 8px; border-radius: 8px;">
+                        <strong>{{ country.name }}</strong>
+                    </li>
+                {% empty %}
+                    <li class="list-group-item">No countries found for your search.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
